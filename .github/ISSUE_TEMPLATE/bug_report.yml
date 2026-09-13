@@ -1,0 +1,120 @@
+name: Bug 报告
+description: 报告可复现的功能缺陷、崩溃或结果异常
+title: "[Bug] "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢反馈。请尽量补全环境信息与复现步骤 —— local-kb-rag 的行为与 CPU/NPU/iGPU
+        型号、OpenVINO 版本、模型下载状态强相关，缺少这些信息往往无法定位。
+
+        > 安全相关问题请勿用公开 Issue 报告，改用仓库 `SECURITY.md` 中说明的私下渠道。
+
+  - type: checkboxes
+    id: preflight
+    attributes:
+      label: 提交前自查
+      options:
+        - label: 我已搜索过既有 Issue，确认不是重复报告
+          required: true
+        - label: 我已阅读 README 的「故障排查」章节
+          required: true
+
+  - type: dropdown
+    id: tool
+    attributes:
+      label: 受影响的入口
+      multiple: true
+      options:
+        - MCP 工具 kb_ingest
+        - MCP 工具 kb_search
+        - MCP 工具 kb_ask
+        - MCP 工具 kb_list_sources
+        - MCP 工具 kb_status
+        - CLI (scripts/run.ps1)
+        - 环境安装 (scripts/install-env.ps1)
+        - 模型下载 (scripts/model_download.py)
+        - 常驻 server / named pipe
+        - 其他
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 现象描述
+      description: 实际发生了什么？期望的行为是什么？
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: 复现步骤
+      description: 请给出可直接照做的命令或 MCP 调用序列。
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: output
+    attributes:
+      label: 实际输出 / 报错
+      render: text
+    validations:
+      required: true
+
+  - type: input
+    id: exit-code
+    attributes:
+      label: 退出码
+      description: 若走 CLI，请填写退出码（0 成功 / 2 非 AIPC / 3 环境错误 / 4 下载失败 / 5 server 不可用 / 6 参数错误）。
+    validations:
+      required: false
+
+  - type: input
+    id: os
+    attributes:
+      label: 操作系统与 CPU
+      placeholder: 例：Windows 11 24H2 / Intel Core Ultra 5 225H
+    validations:
+      required: true
+
+  - type: input
+    id: gpu-npu
+    attributes:
+      label: 加速硬件与驱动
+      description: iGPU / NPU 型号与驱动版本；无加速硬件请填「无，纯 CPU」。
+      placeholder: 例：Intel Arc 130T iGPU + NPU，驱动 32.0.101.6554
+    validations:
+      required: true
+
+  - type: input
+    id: openvino-devices
+    attributes:
+      label: OpenVINO 可见设备
+      description: 运行 `python -c "import openvino; print(openvino.Core().available_devices)"` 的输出。
+    validations:
+      required: false
+
+  - type: input
+    id: versions
+    attributes:
+      label: 版本信息
+      placeholder: 例：local-kb-rag 1.0.0 / Python 3.12.x / OpenVINO 2024.x
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: 日志
+      description: |
+        日志位于 `%USERPROFILE%\.openvino\logs\local-kb-rag\`，
+        server 崩溃线索在 `server.stderr.log`。请粘贴相关片段。
+    validations:
+      required: false

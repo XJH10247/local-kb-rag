@@ -1,0 +1,73 @@
+# ===========================================================================
+# local-kb-rag — 项目元数据清单
+# ===========================================================================
+# 本文件只声明「项目级」元数据（名称 / 描述 / 关键词 / 版本 / 许可证 / 作者），
+# 供 GitHub、代码托管工具链与 CI 读取。
+#
+# 注意：本项目不作为 Python 包分发，不提供 `pip install local-kb-rag`。
+#       Skill 的运行依赖清单在 skills/local-kb-rag/requirements.txt，
+#       由 skills/local-kb-rag/scripts/install-env.ps1 安装到独立 venv。
+#
+# 单一事实来源：本文件的 name / version / license 必须与
+#       skills/local-kb-rag/meta.json 保持一致，
+#       由 .github/scripts/check_metadata.py 在 CI 中校验。
+# ===========================================================================
+
+[project]
+name = "local-kb-rag"
+version = "1.0.0"
+description = "本地私有知识库 RAG Skill：把 PDF / Markdown / TXT 摄入本地向量库，提供带引用的语义检索与问答；全链路 OpenVINO 本地推理（NPU / iGPU / CPU），语料与模型不出机。"
+readme = "README.md"
+requires-python = ">=3.10,<3.13"
+license = "Apache-2.0"
+license-files = ["LICENSE"]
+authors = [{ name = "local-kb-rag contributors" }]
+keywords = [
+    "rag",
+    "retrieval-augmented-generation",
+    "local-llm",
+    "openvino",
+    "npu",
+    "igpu",
+    "knowledge-base",
+    "vector-search",
+    "chromadb",
+    "bge-m3",
+    "reranker",
+    "qwen2.5",
+    "citations",
+    "privacy-preserving",
+    "offline",
+    "mcp",
+    "agent-skill",
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Win32 (MS Windows)",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: Apache Software License",
+    "Natural Language :: Chinese (Simplified)",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+    "Topic :: Text Processing :: Indexing",
+]
+
+# ===========================================================================
+# 项目链接
+# ===========================================================================
+# 此处故意留空：仓库地址在「首次上传到 GitHub」时才能确定，提前写死会在
+# 换账号 / 换仓库名 / fork 时全部失效。
+#
+# 上传后如需填写，取消下方注释并把 <REPO_URL> 换成本仓库地址：
+# [project.urls]
+# Homepage = "<REPO_URL>"
+# Repository = "<REPO_URL>"
+# Issues = "<REPO_URL>/issues"
+# Changelog = "<REPO_URL>/blob/main/CHANGELOG.md"
+#
+# 说明：本项目不作为 Python 包分发（无 pip install），[project.urls] 缺失
+#       不影响任何功能，也不会被 CI 校验为错误。

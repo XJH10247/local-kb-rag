@@ -1,0 +1,29 @@
+{
+  "display_name": "本地私有知识库 RAG",
+  "name": "local-kb-rag",
+  "icon": "brain",
+  "version": "1.0.0",
+  "description": "本地私有知识库 RAG Skill：把 PDF / Markdown / TXT 摄入本地向量库，提供带引用的语义检索与问答；全链路 OpenVINO 本地推理（NPU / iGPU / CPU），语料与模型不出机。",
+  "use_cases": [
+    "个人 PDF/笔记库智能问答",
+    "研报摘要与带引用检索",
+    "离线私有第二大脑",
+    "本地文档语义检索与出处定位"
+  ],
+  "tags": [
+    "RAG",
+    "知识库",
+    "知识管理",
+    "OpenVINO",
+    "NPU",
+    "iGPU",
+    "本地推理",
+    "离线",
+    "语义检索",
+    "带引用问答",
+    "隐私",
+    "MCP"
+  ],
+  "author": "local-kb-rag contributors",
+  "license": "Apache-2.0"
+}

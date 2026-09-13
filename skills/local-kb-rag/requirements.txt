@@ -1,0 +1,26 @@
+# local-kb-rag 依赖清单（关键版本钉死，避免评审环境漂移）
+# OpenVINO 推理栈
+openvino>=2024.4,<2026.0
+optimum[openvino]>=1.20
+openvino-tokenizers>=2024.4
+openvino-genai>=2024.4
+
+# 模型下载（国内网络友好，断点续传）
+modelscope>=1.18
+huggingface_hub>=0.23
+
+# 向量库
+chromadb>=0.5,<0.6
+
+# 文档解析
+PyMuPDF>=1.24
+
+# MCP 适配层（Qoder 原生调用）
+mcp>=1.0
+
+# 通用
+numpy>=1.24,<2.0
+transformers>=4.40,<4.50
+sentencepiece>=0.1.99
+psutil>=5.9
+requests>=2.31

@@ -1,0 +1,52 @@
+name: CI
+
+# 轻量持续集成：
+#   - metadata：校验项目元数据与仓库结构约定（纯 Python 标准库，秒级）
+#   - smoke   ：跑切分逻辑冒烟测试（stub 掉 numpy，不安装 OpenVINO）
+#
+# 端到端测试 skills/local-kb-rag/tests/test-e2e.ps1 需要 Windows AIPC +
+# 数 GB 模型下载，仅在本地运行，不纳入 CI。
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  metadata:
+    name: Repository metadata
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Validate project metadata and layout
+        run: python .github/scripts/check_metadata.py
+
+  smoke:
+    name: Split smoke test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run split smoke test
+        run: python skills/local-kb-rag/tests/test_split_smoke.py

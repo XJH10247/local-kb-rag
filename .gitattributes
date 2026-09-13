@@ -1,0 +1,43 @@
+# ===========================================================================
+# 换行符与文本属性规范化
+#
+# 目标：无论贡献者的 core.autocrlf 设置如何，仓库内与检出后的换行符都保持一致，
+#       避免「同一个文件在不同机器上 diff 出一整片改动」。
+# ===========================================================================
+
+# 默认：由 git 判定文本文件，统一以 LF 存入仓库
+* text=auto eol=lf
+
+# --- 源码与配置文件：LF -----------------------------------------------
+*.py        text eol=lf
+*.md        text eol=lf
+*.json      text eol=lf
+*.toml      text eol=lf
+*.txt       text eol=lf
+*.yml       text eol=lf
+*.yaml      text eol=lf
+*.cff       text eol=lf
+.gitignore  text eol=lf
+.gitattributes text eol=lf
+
+# --- PowerShell 脚本：CRLF（Windows 原生约定） ------------------------
+# 这些脚本含中文注释与中文字符串字面量。Windows PowerShell 5.1 在文件无 BOM 时
+# 会按当前 ANSI 代码页解码，中文字面量被截断后会导致脚本解析失败。
+# 因此 skills/local-kb-rag/ 下的 .ps1 一律带 UTF-8 BOM，并由
+# .github/scripts/check_metadata.py 在 CI 中强制校验；改动时请勿删除 BOM。
+*.ps1       text eol=crlf
+*.psm1      text eol=crlf
+
+# --- 二进制：不参与任何换行/编码转换 ----------------------------------
+*.png       binary
+*.jpg       binary
+*.jpeg      binary
+*.gif       binary
+*.ico       binary
+*.pdf       binary
+*.zip       binary
+*.7z        binary
+*.bin       binary
+*.onnx      binary
+*.pyc       binary
+*.safetensors binary

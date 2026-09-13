@@ -1,0 +1,50 @@
+{
+  "name": "local-kb-rag",
+  "venv_name": "local-kb-rag",
+  "python_version": "3.10",
+  "mem_need_gb": 8,
+  "server_alive_timeout": 300,
+  "pipe_name": "\\\\.\\pipe\\local-kb-rag",
+  "models": [
+    {
+      "name": "bge-m3",
+      "role": "embedding",
+      "source": "modelscope",
+      "repo": "BAAI/bge-m3",
+      "export": true,
+      "task": "feature-extraction",
+      "required_files": ["openvino_model.xml", "openvino_model.bin", "tokenizer.json"],
+      "device_preference": ["NPU", "CPU"],
+      "max_length": 512
+    },
+    {
+      "name": "bge-reranker-v2-m3",
+      "role": "reranker",
+      "source": "modelscope",
+      "repo": "BAAI/bge-reranker-v2-m3",
+      "export": true,
+      "task": "text-classification",
+      "required_files": ["openvino_model.xml", "openvino_model.bin", "tokenizer.json"],
+      "device_preference": ["NPU", "CPU"],
+      "max_length": 512
+    },
+    {
+      "name": "qwen2.5-7b-instruct-int4",
+      "role": "llm",
+      "source": "modelscope",
+      "repo": "OpenVINO/Qwen2.5-7B-Instruct-int4-ov",
+      "export": false,
+      "task": "text-generation-with-past",
+      "required_files": ["openvino_model.xml", "openvino_model.bin", "tokenizer.json"],
+      "device_preference": ["GPU", "CPU"],
+      "fallback_repo": "OpenVINO/Qwen2.5-3B-Instruct-int4-ov"
+    }
+  ],
+  "rag": {
+    "chunk_size": 512,
+    "chunk_overlap": 64,
+    "top_k": 5,
+    "rerank_candidates_factor": 4,
+    "max_tokens": 512
+  }
+}
